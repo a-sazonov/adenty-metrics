@@ -38,21 +38,8 @@ setTimeout(async () => {
   }
 }, 0)
 
-async function triggerEvent() {
-  let visitor;
-  try {
-    const data = (await adenty.astorage.get('aidpvid'), true);
-debugger
-    visitor = JSON.parse(data);
-  } catch (e) {
-    visitor = null
-  }
-
-  if (!visitor) {
-    return;
-  }
-
-  const browserName = visitor?.deviceDetail?.browser?.name;
+async function triggerEvent(event) {
+  debugger
   const eventModel = {
     tenants: {
       clientCode: adenty.dl?.adenty?.visit?.clientcode,
@@ -64,10 +51,9 @@ debugger
     visitorId: adenty.dl.adenty?.visit?.vid,
     recognitionId: adenty.dl.adenty?.visit?.rid,
     activityData: event.eventArguments,
-    deviceDetail: visitor?.deviceDetail,
   };
   const url = 'https://prod-adenty-proxy-api.azurewebsites.net/api/deviceVisitorActivity/event';
-  if (navigator.sendBeacon && (browserName !== BrowserConstants.Brave && browserName !== BrowserConstants.Tor)) {
+  if (navigator.sendBeacon) {
     sendBeaconEvent(url, eventModel, browser);
   } else {
     sendFetchEvent(url, eventModel, browser);
