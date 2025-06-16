@@ -61,7 +61,7 @@ async function triggerEvent(event) {
 }
 
 function sendBeaconEvent(url, eventModel) {
-  navigator.sendBeacon(url, eventModel);
+  navigator.sendBeacon(url, JSON.stringify(eventModel));
 }
 
 function sendFetchEvent(url, eventModel) {
