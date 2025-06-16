@@ -19,7 +19,6 @@ setTimeout(async () => {
       expires: date.toISOString(),
     });
     document.cookie = `${cGUID}=${scGUID}; expires=${date.toUTCString()};`;
-    debugger
     return;
   }
 
@@ -30,8 +29,7 @@ setTimeout(async () => {
     return item.indexOf(cGUIDKey) > -1
   });
   const val = cookieVal ? (cookieVal.trim().substring(cGUIDKey.length) || '') : '';
-  debugger
-  if (!val || val !== scGUID) {
+  if (!val || Number(val) !== scGUID) {
     //window.adenty.event.fireEvent({name: 'VisitorCookieChanged'}); for 1.7 only
     triggerEvent({name: 'VisitorCookieChanged'});
     document.cookie = `${cGUID}=${scGUID}; expires=${date.toUTCString()};`;
@@ -39,7 +37,6 @@ setTimeout(async () => {
 }, 0)
 
 async function triggerEvent(event) {
-  debugger
   const eventModel = {
     tenants: {
       clientCode: adenty.dl?.adenty?.visit?.clientcode,
