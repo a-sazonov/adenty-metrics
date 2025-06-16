@@ -63,9 +63,10 @@ debugger
       }
     }
 
-    if (!val || val !== ckPVCount.value) {
+    if (!val || val !== sCookieckPVCountVal) {
       const expires = date.toUTCString();
-      window.adenty.event.fireEvent({name: 'VisitorCookieCountChanged', eventArguments: {[ckPVCountName]: ckPVCount}});
+      // window.adenty.event.fireEvent({name: 'VisitorCookieCountChanged', eventArguments: {[ckPVCountName]: ckPVCount}}); //for 1.7 only
+      triggerEvent({name: 'VisitorCookieCountChanged', eventArguments: {[ckPVCountName]: ckPVCount}});
 
       window.adenty.scookie.set({
         name: ckPVCountName,
@@ -85,8 +86,9 @@ debugger
     }
   });
 
-  if (fp?.value !== adenty.dl.adenty?.visit?.rid) {
-    window.adenty.event.fireEvent({name: 'VisitorFPCountChanged', eventArguments: {[fpPVCountName]: fpPVCount}});
+  if (fp !== adenty.dl?.adenty?.visit?.rid) {
+    //window.adenty.event.fireEvent({name: 'VisitorFPCountChanged', eventArguments: {[fpPVCountName]: fpPVCount}}); //for 1.7 only
+    triggerEvent({name: 'VisitorFPCountChanged', eventArguments: {[fpPVCountName]: fpPVCount}});
 
     window.adenty.scookie.set({
       name: fpName,
@@ -108,4 +110,39 @@ debugger
       purgeDate: date.toISOString()
     });
   }
-}, 0)
+}, 0);
+
+async function triggerEvent(event) {
+  const eventModel = {
+    tenants: {
+      clientCode: adenty.dl?.adenty?.visit?.clientcode,
+      propertyCode: adenty.dl?.adenty?.visit?.sitegroupcode,
+      siteCode: adenty.dl?.adenty?.visit?.sitecode,
+    },
+    event: 14,
+    eventName: event.name,
+    visitorId: adenty.dl.adenty?.visit?.vid,
+    recognitionId: adenty.dl.adenty?.visit?.rid,
+    activityData: event.eventArguments || null,
+  };
+  const url = 'https://prod-adenty-proxy-api.azurewebsites.net/api/deviceVisitorActivity/event';
+  if (navigator.sendBeacon) {
+    sendBeaconEvent(url, eventModel);
+  } else {
+    sendFetchEvent(url, eventModel);
+  }
+}
+
+function sendBeaconEvent(url, eventModel) {
+  navigator.sendBeacon(url, JSON.stringify(eventModel));
+}
+
+function sendFetchEvent(url, eventModel) {
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: eventModel
+  })
+}
