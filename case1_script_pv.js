@@ -29,10 +29,10 @@ setTimeout(async () => {
     return item.indexOf(cGUIDKey) > -1
   });
   const val = cookieVal ? (cookieVal.trim().substring(cGUIDKey.length) || '') : '';
-  if (!val || Number(val) !== scGUID) {
+  if (!val || Number(val) !== Number(scGUID)) {
     //window.adenty.event.fireEvent({name: 'VisitorCookieChanged'}); for 1.7 only
     triggerEvent({name: 'VisitorCookieChanged'});
-    document.cookie = `${cGUID}=${scGUID}; expires=${date.toUTCString()};`;
+    document.cookie = `${cGUID}=${Number(scGUID)}; expires=${date.toUTCString()};`;
   }
 }, 0)
 
