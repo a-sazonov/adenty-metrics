@@ -29,7 +29,7 @@ setTimeout(async () => {
   const cookieVal = cookie.find(item => {
     return item.indexOf(cGUIDKey) > -1
   });
-  const val = (cookieVal.trim().substring(cGUIDKey.length) || '');
+  const val = cookieVal ? (cookieVal.trim().substring(cGUIDKey.length) || '') : '';
   debugger
   if (!val || val !== scGUID) {
     //window.adenty.event.fireEvent({name: 'VisitorCookieChanged'}); for 1.7 only
