@@ -53,38 +53,32 @@ debugger
 
   const ckPVCountCookiName = `${ckPVCountName}=`;
   const cookie = document.cookie.split(';');
-  cookie.forEach(item => {
-    let val;
-    if (item.indexOf(ckPVCountCookiName) > -1) {
-      try {
-        val = (item.trim().substring(ckPVCountCookiName.length) || '');
-      } catch (e) {
-        val = null;
-      }
-    }
-
-    if (!val || val !== sCookieckPVCountVal) {
-      const expires = date.toUTCString();
-      // window.adenty.event.fireEvent({name: 'VisitorCookieCountChanged', eventArguments: {[ckPVCountName]: ckPVCount}}); //for 1.7 only
-      triggerEvent({name: 'VisitorCookieCountChanged', eventArguments: {[ckPVCountName]: ckPVCount}});
-
-      window.adenty.scookie.set({
-        name: ckPVCountName,
-        value: JSON.stringify(1),
-        expires: date.toISOString(),
-        purgeDate: date.toISOString()
-      });
-      document.cookie = `${ckPVCountCookiName}=${1}; expires=${expires};`;
-    } else {
-      window.adenty.scookie.set({
-        name: ckPVCountName,
-        value: JSON.stringify(sCookieckPVCountVal+1),
-        expires: date.toISOString(),
-        purgeDate: date.toISOString()
-      });
-      document.cookie = `${ckPVCountCookiName}=${sCookieckPVCountVal+1}; expires=${expires};`;
-    }
+  const cookieVal = cookie.find(item => {
+    return item.indexOf(cGUIDKey) > -1
   });
+  const val = cookieVal ? (cookieVal.trim().substring(cGUIDKey.length) || '') : '';
+  if (!val || val !== sCookieckPVCountVal) {
+    const expires = date.toUTCString();
+    // window.adenty.event.fireEvent({name: 'VisitorCookieCountChanged', eventArguments: {[ckPVCountName]: ckPVCount}}); //for 1.7 only
+    triggerEvent({name: 'VisitorCookieCountChanged', eventArguments: {[ckPVCountName]: ckPVCount}});
+
+    window.adenty.scookie.set({
+      name: ckPVCountName,
+      value: JSON.stringify(1),
+      expires: date.toISOString(),
+      purgeDate: date.toISOString()
+    });
+    document.cookie = `${ckPVCountCookiName}=${1}; expires=${expires};`;
+  } else {
+    window.adenty.scookie.set({
+      name: ckPVCountName,
+      value: JSON.stringify(sCookieckPVCountVal+1),
+      expires: date.toISOString(),
+      purgeDate: date.toISOString()
+    });
+    document.cookie = `${ckPVCountCookiName}=${sCookieckPVCountVal+1}; expires=${expires};`;
+  }
+
 
   if (fp !== adenty.dl?.adenty?.visit?.rid) {
     //window.adenty.event.fireEvent({name: 'VisitorFPCountChanged', eventArguments: {[fpPVCountName]: fpPVCount}}); //for 1.7 only
