@@ -65,7 +65,7 @@ debugger
 
     if (!val || val !== ckPVCount.value) {
       const expires = date.toUTCString();
-      window.adenty.event.fireServerEvent({name: 'VisitorCookieCountChanged', eventArguments: {[ckPVCountName]: ckPVCount}});
+      window.adenty.event.fireEvent({name: 'VisitorCookieCountChanged', eventArguments: {[ckPVCountName]: ckPVCount}});
 
       window.adenty.scookie.set({
         name: ckPVCountName,
@@ -86,7 +86,7 @@ debugger
   });
 
   if (fp?.value !== adenty.dl.adenty?.visit?.rid) {
-    window.adenty.event.fireServerEvent({name: 'VisitorFPCountChanged', eventArguments: {[fpPVCountName]: fpPVCount}});
+    window.adenty.event.fireEvent({name: 'VisitorFPCountChanged', eventArguments: {[fpPVCountName]: fpPVCount}});
 
     window.adenty.scookie.set({
       name: fpName,
