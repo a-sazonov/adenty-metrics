@@ -6,6 +6,7 @@ setTimeout(async () => {
     scGUID = null;
   }
 
+  const cGUID = 'aidp_tt_cookieId';
   const date = new Date();
   date.setMonth(date.getMonth() + 1);
 
@@ -22,17 +23,16 @@ setTimeout(async () => {
     return;
   }
 
-  const cGUID = 'aidp_tt_cookieId';
   const cGUIDKey = `${cGUID}=`;
   const cookie = document.cookie.split(';');
   const cookieVal = cookie.find(item => {
     return item.indexOf(cGUIDKey) > -1
   });
   const val = cookieVal ? (cookieVal.trim().substring(cGUIDKey.length) || '') : '';
-  if (!val || Number(val) !== Number(scGUID)) {
+  if (!val || val !== scGUID) {
     //window.adenty.event.fireEvent({name: 'VisitorCookieChanged'}); for 1.7 only
     triggerEvent({name: 'VisitorCookieChanged'});
-    document.cookie = `${cGUID}=${Number(scGUID)}; expires=${date.toUTCString()};`;
+    document.cookie = `${cGUID}=${scGUID}; expires=${date.toUTCString()};`;
   }
 }, 0)
 
