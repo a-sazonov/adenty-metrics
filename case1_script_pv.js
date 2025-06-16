@@ -44,20 +44,20 @@ async function triggerEvent(event) {
     tenants: {
       clientCode: adenty.dl?.adenty?.visit?.clientcode,
       propertyCode: adenty.dl?.adenty?.visit?.sitegroupcode,
-      siteCode: adenty.dl?.adenty?.visit?.string,
+      siteCode: adenty.dl?.adenty?.visit?.sitecode,
     },
     event: 14,
     eventName: event.name,
     visitorId: adenty.dl.adenty?.visit?.vid,
     recognitionId: adenty.dl.adenty?.visit?.rid,
-    activityData: event.eventArguments,
+    activityData: event.eventArguments || null,
   };
   const url = 'https://prod-adenty-proxy-api.azurewebsites.net/api/deviceVisitorActivity/event';
-  if (navigator.sendBeacon) {
+  /*if (navigator.sendBeacon) {
     sendBeaconEvent(url, eventModel);
-  } else {
+  } else {*/
     sendFetchEvent(url, eventModel);
-  }
+ // }
 }
 
 function sendBeaconEvent(url, eventModel) {
