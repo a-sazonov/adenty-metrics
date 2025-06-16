@@ -30,14 +30,14 @@ setTimeout(async () => {
     sCookiefpPVCountVal = null;
   }
 
+  const date = new Date();
+  date.setMonth(date.getMonth() + 1);
+  
   window.adenty.scookie.set({
     name: vidPVCountName,
     value: JSON.stringify((sCookievidPVCountVal + 1)),
     expires: date.toISOString(),
   });
-
-  const date = new Date();
-  date.setMonth(date.getMonth() + 1);
 
   if (!sCookieckPVCountVal || !sCookiefpPVCountVal || !fp) {
     document.cookie = `${ckPVCountName}=1; expires=${date.toUTCString()};`;
