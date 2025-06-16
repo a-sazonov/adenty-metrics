@@ -1,7 +1,7 @@
 setTimeout(async () => {
   let scGUID;
   try {
-    scGUID = await window.adenty?.scookie.get('aidp_tt_cookieId');
+    scGUID = (await window.adenty?.scookie.get('aidp_tt_cookieId'))?.value;
   } catch (e) {
     scGUID = null;
   }
