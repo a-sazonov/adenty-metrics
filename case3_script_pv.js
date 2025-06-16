@@ -53,7 +53,7 @@ setTimeout(async () => {
     return item.indexOf(ckPVCountCookiName) > -1
   });
   const val = cookieVal ? (cookieVal.trim().substring(ckPVCountCookiName.length) || '') : '';
-  if (!val || val !== sCookieckPVCountVal) {
+  if (!val || Number(val) !== sCookieckPVCountVal) {
     debugger
 
     const expires = date.toUTCString();
@@ -68,7 +68,7 @@ setTimeout(async () => {
     document.cookie = `${ckPVCountName}=1; expires=${expires};`;
   } else {
     debugger
-    
+
     window.adenty.scookie.set({
       name: ckPVCountName,
       value: JSON.stringify(sCookieckPVCountVal+1),
