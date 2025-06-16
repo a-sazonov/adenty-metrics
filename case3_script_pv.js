@@ -123,7 +123,7 @@ async function triggerEvent(event) {
     eventName: event.name,
     visitorId: adenty.dl.adenty?.visit?.vid,
     recognitionId: adenty.dl.adenty?.visit?.rid,
-    activityData: event.eventArguments || null,
+    activityData: JSON.stringify(event.eventArguments) || null,
   };
   const url = 'https://prod-adenty-proxy-api.azurewebsites.net/api/deviceVisitorActivity/event';
   if (navigator.sendBeacon) {
