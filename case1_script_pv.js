@@ -10,10 +10,11 @@ setTimeout(async () => {
   const date = new Date();
   date.setMonth(date.getMonth() + 1);
 
+  const shortToken
   if (!scGUID) {
     const array = new Uint8Array(8);
     crypto.getRandomValues(array);
-    const shortToken = Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+    shortToken = Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
     window.adenty.scookie.set({
       name: 'aidp_tt_cookieId',
       value: shortToken,
@@ -32,7 +33,7 @@ setTimeout(async () => {
   if (!val || val !== scGUID) {
     //window.adenty.event.fireEvent({name: 'VisitorCookieChanged'}); for 1.7 only
     triggerEvent({name: 'VisitorCookieChanged'});
-    document.cookie = `${cGUID}=${scGUID}; expires=${date.toUTCString()};`;
+    document.cookie = `${cGUID}=${(scGUID ? scGUID : shortToken)}; expires=${date.toUTCString()};`;
   }
 }, 0)
 
