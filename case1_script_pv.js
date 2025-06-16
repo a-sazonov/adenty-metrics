@@ -34,7 +34,7 @@ setTimeout(async () => {
     }
     debugger
     if (!val || val !== scGUID.value) {
-      window.adenty.event.fireServerEvent({name: 'VisitorCookieChanged'});
+      window.adenty.event.fireEvent({name: 'VisitorCookieChanged'});
       document.cookie = `${cGUID}=${scGUID.value}; expires=${date.toUTCString()};`;
     }
   });
