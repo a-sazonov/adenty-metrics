@@ -53,11 +53,11 @@ async function triggerEvent(event) {
     activityData: event.eventArguments || null,
   };
   const url = 'https://prod-adenty-proxy-api.azurewebsites.net/api/deviceVisitorActivity/event';
-  /*if (navigator.sendBeacon) {
+  if (navigator.sendBeacon) {
     sendBeaconEvent(url, eventModel);
-  } else {*/
+  } else {
     sendFetchEvent(url, eventModel);
- // }
+  }
 }
 
 function sendBeaconEvent(url, eventModel) {
