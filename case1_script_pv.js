@@ -1,6 +1,3 @@
-import {ActivityType} from "./Adenty/lplabs_anonid/UI/src/enums/activity-type.enum";
-import {BrowserConstants} from "./Adenty/lplabs_anonid/UI/src/core/constants/browsers.constants";
-
 setTimeout(async () => {
   let scGUID;
   try {
@@ -20,7 +17,6 @@ setTimeout(async () => {
       name: 'aidp_tt_cookieId',
       value: shortToken,
       expires: date.toISOString(),
-      purgeDate: date.toISOString()
     });
     document.cookie = `${cGUID}=${scGUID}; expires=${date.toUTCString()};`;
     debugger
