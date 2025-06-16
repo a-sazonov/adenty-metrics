@@ -62,14 +62,14 @@ debugger
       value: JSON.stringify(1),
       expires: date.toISOString(),
     });
-    document.cookie = `${ckPVCountCookiName}=${1}; expires=${expires};`;
+    document.cookie = `${ckPVCountName}=1; expires=${expires};`;
   } else {
     window.adenty.scookie.set({
       name: ckPVCountName,
       value: JSON.stringify(sCookieckPVCountVal+1),
       expires: date.toISOString(),
     });
-    document.cookie = `${ckPVCountCookiName}=${sCookieckPVCountVal+1}; expires=${expires};`;
+    document.cookie = `${ckPVCountName}=${sCookieckPVCountVal+1}; expires=${expires};`;
   }
 
 
