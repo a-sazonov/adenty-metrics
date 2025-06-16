@@ -10,7 +10,7 @@ setTimeout(async () => {
 
   try {
     debugger
-    fp = await window.adenty.scookie.get(fpName);
+    fp = (await window.adenty.scookie.get(fpName))?.value;
     ckPVCount = await window.adenty?.scookie.get(ckPVCountName);
       sCookieckPVCountVal = Number(ckPVCount.value);
 
