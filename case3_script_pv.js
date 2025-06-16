@@ -32,10 +32,10 @@ setTimeout(async () => {
 
   const date = new Date();
   date.setMonth(date.getMonth() + 1);
-  
+
   window.adenty.scookie.set({
     name: vidPVCountName,
-    value: JSON.stringify((sCookievidPVCountVal + 1)),
+    value: JSON.stringify((sCookievidPVCountVal ? sCookievidPVCountVal + 1 : 1)),
     expires: date.toISOString(),
   });
 
