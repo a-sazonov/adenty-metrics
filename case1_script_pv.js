@@ -19,7 +19,7 @@ setTimeout(async () => {
       expires: date.toISOString(),
       purgeDate: date.toISOString()
     });
-    document.cookie = `${cGUID}=${scGUID.value}; expires=${date.toUTCString()};`;
+    document.cookie = `${cGUID}=${scGUID}; expires=${date.toUTCString()};`;
     debugger
     return;
   }
@@ -33,9 +33,9 @@ setTimeout(async () => {
       val = (item.trim().substring(cGUIDKey.length) || '');
     }
     debugger
-    if (!val || val !== scGUID.value) {
+    if (!val || val !== scGUID) {
       window.adenty.event.fireEvent({name: 'VisitorCookieChanged'});
-      document.cookie = `${cGUID}=${scGUID.value}; expires=${date.toUTCString()};`;
+      document.cookie = `${cGUID}=${scGUID}; expires=${date.toUTCString()};`;
     }
   });
 }, 0)
