@@ -27,7 +27,6 @@ setTimeout(async () => {
   date.setMonth(date.getMonth() + 1);
 
   if (!sCookieckPVCountVal || !sCookiefpPVCountVal || !fp) {
-    debugger
     document.cookie = `${ckPVCountName}=1; expires=${date.toUTCString()};`;
     window.adenty.scookie.set({
       name: ckPVCountName,
@@ -58,11 +57,10 @@ setTimeout(async () => {
   if (!val || Number(val) !== sCookieckPVCountVal) {
     newCkCounVal = 1;
     // window.adenty.event.fireEvent({name: 'VisitorCookieCountChanged', eventArguments: {[ckPVCountName]: ckPVCount}}); //for 1.7 only
-    triggerEvent({name: 'VisitorCookieCountChanged', eventArguments: {[ckPVCountName]: ckPVCount}});
+    triggerEvent({name: 'VisitorCookieCountChanged', eventArguments: {[ckPVCountName]: sCookieckPVCountVal}});
   } else {
     newCkCounVal = sCookieckPVCountVal+1;
   }
-  debugger
 
   window.adenty.scookie.set({
     name: ckPVCountName,
@@ -74,7 +72,7 @@ setTimeout(async () => {
 let newFpCountValue;
   if (fp !== adenty.dl?.adenty?.visit?.rid) {
     //window.adenty.event.fireEvent({name: 'VisitorFPCountChanged', eventArguments: {[fpPVCountName]: fpPVCount}}); //for 1.7 only
-    triggerEvent({name: 'VisitorFPCountChanged', eventArguments: {[fpPVCountName]: fpPVCount}});
+    triggerEvent({name: 'VisitorFPCountChanged', eventArguments: {[fpPVCountName]: sCookieckPVCountVal}});
 
     newFpCountValue = 1;
     window.adenty.scookie.set({
