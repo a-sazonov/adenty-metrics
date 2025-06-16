@@ -1,3 +1,6 @@
+import {ActivityType} from "./Adenty/lplabs_anonid/UI/src/enums/activity-type.enum";
+import {BrowserConstants} from "./Adenty/lplabs_anonid/UI/src/core/constants/browsers.constants";
+
 setTimeout(async () => {
   let scGUID;
   try {
@@ -34,8 +37,59 @@ setTimeout(async () => {
     }
     debugger
     if (!val || val !== scGUID) {
-      window.adenty.event.fireEvent({name: 'VisitorCookieChanged'});
+      //window.adenty.event.fireEvent({name: 'VisitorCookieChanged'}); for 1.7 only
+      triggerEvent({name: 'VisitorCookieChanged'});
       document.cookie = `${cGUID}=${scGUID}; expires=${date.toUTCString()};`;
     }
   });
 }, 0)
+
+async function triggerEvent() {
+  let visitor;
+  try {
+    const data = (await adenty.astorage.get('aidpvid'))?.value;
+debugger
+    visitor = JSON.parse(data);
+  } catch (e) {
+    visitor = null
+  }
+
+  if (!visitor) {
+    return;
+  }
+
+  const browserName = visitor?.deviceDetail?.browser?.name;
+  const eventModel = {
+    tenants: {
+      clientCode: adenty.dl?.adenty?.visit?.clientcode,
+      propertyCode: adenty.dl?.adenty?.visit?.sitegroupcode,
+      siteCode: adenty.dl?.adenty?.visit?.string,
+    },
+    event: 14,
+    eventName: event.name,
+    visitorId: adenty.dl.adenty?.visit?.vid,
+    recognitionId: adenty.dl.adenty?.visit?.rid,
+    activityData: event.eventArguments,
+    deviceDetail: visitor?.deviceDetail,
+  };
+  const url = 'https://prod-adenty-proxy-api.azurewebsites.net/api/deviceVisitorActivity/event';
+  if (navigator.sendBeacon && (browserName !== BrowserConstants.Brave && browserName !== BrowserConstants.Tor)) {
+    sendBeaconEvent(url, eventModel, browser);
+  } else {
+    sendFetchEvent(url, eventModel, browser);
+  }
+}
+
+function sendBeaconEvent(url, eventModel) {
+  navigator.sendBeacon(url, eventModel);
+}
+
+function sendFetchEvent(url, eventModel) {
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: eventModel
+  })
+}
