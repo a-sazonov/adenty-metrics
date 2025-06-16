@@ -10,7 +10,7 @@ setTimeout(async () => {
   const date = new Date();
   date.setMonth(date.getMonth() + 1);
 
-  const shortToken
+  let shortToken;
   if (!scGUID) {
     const array = new Uint8Array(8);
     crypto.getRandomValues(array);
