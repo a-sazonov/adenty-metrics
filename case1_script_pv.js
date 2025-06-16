@@ -1,7 +1,7 @@
 setTimeout(async () => {
   let scGUID;
   try {
-    scGUID = await window.adenty?.scookie.get('aidpscc');
+    scGUID = await window.adenty?.scookie.get('aidp_tt_cookieId');
   } catch (e) {
     scGUID = null;
   }
@@ -14,24 +14,27 @@ setTimeout(async () => {
     crypto.getRandomValues(array);
     const shortToken = Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
     window.adenty.scookie.set({
-      name: 'aidpscc',
+      name: 'aidp_tt_cookieId',
       value: shortToken,
       expires: date.toISOString(),
       purgeDate: date.toISOString()
     });
     document.cookie = `${cGUID}=${scGUID.value}; expires=${date.toUTCString()};`;
+    debugger
     return;
   }
 
-  const cGUID = 'cookieGUID=';
+  const cGUID = 'aidp_tt_cookieId';
+  const cGUIDKey = `${cGUID}=`;
   const cookie = document.cookie.split(';');
   cookie.forEach(item => {
     let val;
-    if (item.indexOf(cGUID) > -1) {
-      val = (item.trim().substring(cGUID.length) || '');
+    if (item.indexOf(cGUIDKey) > -1) {
+      val = (item.trim().substring(cGUIDKey.length) || '');
     }
+    debugger
     if (!val || val !== scGUID.value) {
-      window.adenty.event.fireServerEvent({name: 'cookieGUID'});
+      window.adenty.event.fireServerEvent({name: 'VisitorCookieChanged'});
       document.cookie = `${cGUID}=${scGUID.value}; expires=${date.toUTCString()};`;
     }
   });
