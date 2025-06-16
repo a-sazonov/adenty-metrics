@@ -19,7 +19,7 @@ setTimeout(async () => {
       value: shortToken,
       expires: date.toISOString(),
     });
-    document.cookie = `${cGUID}=${scGUID}; expires=${date.toUTCString()};`;
+    document.cookie = `${cGUID}=${shortToken}; expires=${date.toUTCString()};`;
     return;
   }
 
