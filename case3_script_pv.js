@@ -53,52 +53,44 @@ setTimeout(async () => {
     return item.indexOf(ckPVCountCookiName) > -1
   });
   const val = cookieVal ? (cookieVal.trim().substring(ckPVCountCookiName.length) || '') : '';
+  const expires = date.toUTCString();
+  let newCkCounVal;
   if (!val || Number(val) !== sCookieckPVCountVal) {
-    debugger
-
-    const expires = date.toUTCString();
+    newCkCounVal = 1;
     // window.adenty.event.fireEvent({name: 'VisitorCookieCountChanged', eventArguments: {[ckPVCountName]: ckPVCount}}); //for 1.7 only
     triggerEvent({name: 'VisitorCookieCountChanged', eventArguments: {[ckPVCountName]: ckPVCount}});
-
-    window.adenty.scookie.set({
-      name: ckPVCountName,
-      value: JSON.stringify(1),
-      expires: date.toISOString(),
-    });
-    document.cookie = `${ckPVCountName}=1; expires=${expires};`;
   } else {
-    debugger
-
-    window.adenty.scookie.set({
-      name: ckPVCountName,
-      value: JSON.stringify(sCookieckPVCountVal+1),
-      expires: date.toISOString(),
-    });
-    document.cookie = `${ckPVCountName}=${sCookieckPVCountVal+1}; expires=${expires};`;
+    newCkCounVal = sCookieckPVCountVal+1;
   }
+  debugger
 
+  window.adenty.scookie.set({
+    name: ckPVCountName,
+    value: JSON.stringify(newCkCounVal),
+    expires: date.toISOString(),
+  });
+  document.cookie = `${ckPVCountName}=${newCkCounVal}; expires=${date.toUTCString()};`;
 
+let newFpCountValue;
   if (fp !== adenty.dl?.adenty?.visit?.rid) {
     //window.adenty.event.fireEvent({name: 'VisitorFPCountChanged', eventArguments: {[fpPVCountName]: fpPVCount}}); //for 1.7 only
     triggerEvent({name: 'VisitorFPCountChanged', eventArguments: {[fpPVCountName]: fpPVCount}});
 
+    newFpCountValue = 1;
     window.adenty.scookie.set({
       name: fpName,
       value: adenty.dl.adenty?.visit?.rid,
       expires: date.toISOString(),
     });
-    window.adenty.scookie.set({
-      name: fpPVCountName,
-      value: JSON.stringify(1),
-      expires: date.toISOString(),
-    });
   } else {
-    window.adenty.scookie.set({
-      name: fpPVCountName,
-      value: JSON.stringify(ckPVCount+1),
-      expires: date.toISOString(),
-    });
+    newFpCountValue = sCookieckPVCountVal+1
   }
+
+  window.adenty.scookie.set({
+    name: fpPVCountName,
+    value: JSON.stringify(newFpCountValue),
+    expires: date.toISOString(),
+  });
 }, 0);
 
 async function triggerEvent(event) {
