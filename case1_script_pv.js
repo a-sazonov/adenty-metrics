@@ -26,24 +26,22 @@ setTimeout(async () => {
   const cGUID = 'aidp_tt_cookieId';
   const cGUIDKey = `${cGUID}=`;
   const cookie = document.cookie.split(';');
-  cookie.forEach(item => {
-    let val;
-    if (item.indexOf(cGUIDKey) > -1) {
-      val = (item.trim().substring(cGUIDKey.length) || '');
-    }
-    debugger
-    if (!val || val !== scGUID) {
-      //window.adenty.event.fireEvent({name: 'VisitorCookieChanged'}); for 1.7 only
-      triggerEvent({name: 'VisitorCookieChanged'});
-      document.cookie = `${cGUID}=${scGUID}; expires=${date.toUTCString()};`;
-    }
+  const cookieVal = cookie.find(item => {
+    return item.indexOf(cGUIDKey) > -1
   });
+  const val = (cookieVal.trim().substring(cGUIDKey.length) || '');
+  debugger
+  if (!val || val !== scGUID) {
+    //window.adenty.event.fireEvent({name: 'VisitorCookieChanged'}); for 1.7 only
+    triggerEvent({name: 'VisitorCookieChanged'});
+    document.cookie = `${cGUID}=${scGUID}; expires=${date.toUTCString()};`;
+  }
 }, 0)
 
 async function triggerEvent() {
   let visitor;
   try {
-    const data = (await adenty.astorage.get('aidpvid'))?.value;
+    const data = (await adenty.astorage.get('aidpvid'), true)?.value;
 debugger
     visitor = JSON.parse(data);
   } catch (e) {
