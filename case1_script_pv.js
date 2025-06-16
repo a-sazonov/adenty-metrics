@@ -41,7 +41,7 @@ setTimeout(async () => {
 async function triggerEvent() {
   let visitor;
   try {
-    const data = (await adenty.astorage.get('aidpvid'), true)?.value;
+    const data = (await adenty.astorage.get('aidpvid'), true);
 debugger
     visitor = JSON.parse(data);
   } catch (e) {
