@@ -32,7 +32,7 @@ setTimeout(async () => {
     ip: adenty.dl?.adenty?.visit?.ipsha,
     ua: browserData
   })
-
+debugger
   window.adenty.scookie.set({
     name: vidPVCountName,
     value: JSON.stringify((sCookievidPVCountVal ? sCookievidPVCountVal + 1 : 1)),
@@ -40,6 +40,7 @@ setTimeout(async () => {
   });
 
   if (!sCookieckipUaPVCountVal || !ipUa) {
+    debugger
     window.adenty.scookie.set({
       name: ipUaCountName,
       value: JSON.stringify(1),
@@ -57,7 +58,7 @@ setTimeout(async () => {
   if (ipUa.ip !== adenty.dl?.adenty?.visit?.ipsha || ipUa.ua !== browserData) {
     window.adenty.event.fireEvent({
       name: 'VisitorIpUaCountChanged',
-      eventArguments: {[ipUaCountName]: sCookieckipUaPVCountVal, [ipUaName]: ipUaData}
+      eventArguments: JSON.stringify({[ipUaCountName]: sCookieckipUaPVCountVal, [ipUaName]: ipUaData})
     });
 
     newIpUaCountValue = 1;
