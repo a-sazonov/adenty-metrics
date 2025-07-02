@@ -28,7 +28,7 @@ setTimeout(async () => {
   const date = new Date();
   date.setMonth(date.getMonth() + 1);
 
-  const browserData = await adenty.astorage.get('aidpbr')?.value;
+  const browserData = await adenty.astorage.get('aidpbr', true)?.value;
   const ipUaData = JSON.stringify({
     ip: adenty.dl?.adenty?.visit?.ipsha,
     ua: browserData
