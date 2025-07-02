@@ -28,9 +28,10 @@ setTimeout(async () => {
   const date = new Date();
   date.setMonth(date.getMonth() + 1);
 
+  const browserInfo = await adenty.astorage.get('aidpbr');
   let browserData;
   try {
-    browserData = JSON.parse(await adenty.astorage.get('aidpbr'))?.value;
+    browserData = JSON.parse(browserInfo)?.value;
   } catch (error) {
     browserData = null;
   }
