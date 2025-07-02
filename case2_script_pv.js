@@ -32,13 +32,13 @@ setTimeout(async () => {
   let browserData
   try {
     browserInfo = await window.adenty?.scookie.get('aidpbr')
-    browserData = browserInfo.value;
+    browserData = JSON.parse(browserInfo.value);
   } catch (error) {
     browserData = null;
   }
   const ipUaData = JSON.stringify({
     ip: window.adenty?.dl?.adenty?.visit?.ipsha,
-    ua: browserData
+    ua: browserData?.value
   })
   window.adenty.scookie.set({
     name: vidPVCountName,
