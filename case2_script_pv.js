@@ -45,9 +45,8 @@ setTimeout(async () => {
     value: JSON.stringify((sCookievidPVCountVal ? sCookievidPVCountVal + 1 : 1)),
     expires: date.toISOString(),
   });
-  debugger
+
   if (!sCookieckipUaPVCountVal || !ipUa) {
-    debugger
     window.adenty.scookie.set({
       name: ipUaCountName,
       value: JSON.stringify(1),
