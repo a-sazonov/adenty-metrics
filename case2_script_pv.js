@@ -10,7 +10,7 @@ setTimeout(async () => {
   let ipUaPVCount;
 
   try {
-    ipUa = (await window.adenty.scookie.get(ipUaName))?.value;
+    ipUa = JSON.parse((await window.adenty.scookie.get(ipUaName))?.value);
 
     vidPVCount = await window.adenty?.scookie.get(vidPVCountName);
     sCookievidPVCountVal = Number(vidPVCount.value);
