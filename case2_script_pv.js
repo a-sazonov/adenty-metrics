@@ -31,13 +31,13 @@ setTimeout(async () => {
   let browserInfo;
   let browserData
   try {
-    browserInfo = await adenty.astorage.get('aidpbr')
+    browserInfo = await window.adenty?.scookie.get('aidpbr')
     browserData = browserInfo.value;
   } catch (error) {
     browserData = null;
   }
   const ipUaData = JSON.stringify({
-    ip: adenty.dl?.adenty?.visit?.ipsha,
+    ip: window.adenty?.dl?.adenty?.visit?.ipsha,
     ua: browserData
   })
   window.adenty.scookie.set({
