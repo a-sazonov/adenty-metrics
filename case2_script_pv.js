@@ -62,7 +62,7 @@ setTimeout(async () => {
   }
 
   let newIpUaCountValue;
-  if (ipUa.ip !== adenty.dl?.adenty?.visit?.ipsha || ipUa.ua !== browserData) {
+  if (ipUa.ip !== adenty.dl?.adenty?.visit?.ipsha || ipUa.ua !== browserData?.value) {
     window.adenty.event.fireEvent({
       name: 'VisitorIpUaCountChanged',
       eventArguments: JSON.stringify({[ipUaCountName]: sCookieckipUaPVCountVal, [ipUaName]: ipUaData})
