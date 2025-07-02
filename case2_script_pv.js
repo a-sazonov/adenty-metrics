@@ -3,6 +3,7 @@ setTimeout(async () => {
   const ipUaName = 'aidp_tt_ip_ua';
   let vidPVCount;
   const ipUaCountName = 'aidp_tt_ip_uaPVCount';
+  const vidPVCountName = 'aidp_tt_vidPVCount';
 
   let sCookievidPVCountVal;
   let sCookieckipUaPVCountVal;
