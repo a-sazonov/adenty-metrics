@@ -69,7 +69,7 @@ setTimeout(async () => {
   let newCkCounVal;
   if (!val || Number(val) !== sCookieckPVCountVal) {
     newCkCounVal = 1;
-    window.adenty.event.fireEvent({name: 'VisitorCookieCountChanged', eventArguments: {[ckPVCountName]: sCookieckPVCountVal}});
+    window.adenty.event.fireEvent({name: 'VisitorCookieCountChanged', eventArguments: JSON.stringify({[ckPVCountName]: sCookieckPVCountVal})});
   } else {
     newCkCounVal = sCookieckPVCountVal + 1;
   }
@@ -83,7 +83,7 @@ setTimeout(async () => {
 
   let newFpCountValue;
   if (fp !== adenty.dl?.adenty?.visit?.rid) {
-    window.adenty.event.fireEvent({name: 'VisitorFPCountChanged', eventArguments: {[fpPVCountName]: sCookiefpPVCountVal}});
+    window.adenty.event.fireEvent({name: 'VisitorFPCountChanged', eventArguments: JSON.stringify({[fpPVCountName]: sCookiefpPVCountVal})});
 
     newFpCountValue = 1;
     window.adenty.scookie.set({
