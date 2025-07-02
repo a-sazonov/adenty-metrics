@@ -27,18 +27,17 @@ setTimeout(async () => {
   const date = new Date();
   date.setMonth(date.getMonth() + 1);
 
-  const browserData = await adenty.astorage.get('aidpbr');
+  const browserData = await adenty.astorage.get('aidpbr')?.value;
   const ipUaData = JSON.stringify({
     ip: adenty.dl?.adenty?.visit?.ipsha,
     ua: browserData
   })
-debugger
   window.adenty.scookie.set({
     name: vidPVCountName,
     value: JSON.stringify((sCookievidPVCountVal ? sCookievidPVCountVal + 1 : 1)),
     expires: date.toISOString(),
   });
-
+  debugger
   if (!sCookieckipUaPVCountVal || !ipUa) {
     debugger
     window.adenty.scookie.set({
